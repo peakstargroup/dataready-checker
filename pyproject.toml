@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "peakstar-dataready"
+version = "1.0.0"
+description = "資料準備度健檢 (Data Readiness check): before you spend on AI, see if your data is ready to feed it. Zero dependencies, runs locally."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Peakstar", email = "hello@peakstargroup.com" }]
+keywords = ["ai", "rag", "data-quality", "data-readiness", "llm", "data-governance", "sme"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Intended Audience :: Information Technology",
+]
+dependencies = []  # zero runtime dependencies, standard library only
+
+[project.urls]
+Homepage = "https://www.peakstargroup.com"
+Repository = "https://github.com/peakstargroup/dataready-checker"
+
+[project.scripts]
+dataready = "peakstar_dataready.cli:main"
+
+[tool.setuptools]
+packages = ["peakstar_dataready"]

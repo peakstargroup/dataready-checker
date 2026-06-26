@@ -1,0 +1,9 @@
+# Normalize all text files to LF in the repo
+* text=auto eol=lf
+
+# Explicit binary types (never normalize / never diff as text)
+*.pdf  binary
+*.pptx binary
+*.docx binary
+*.png  binary
+*.csv  text eol=lf

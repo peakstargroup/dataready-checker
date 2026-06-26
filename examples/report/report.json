@@ -1,0 +1,88 @@
+{
+  "root": "examples\\sample_docs",
+  "generated_at": "2026-06-26 11:11:17",
+  "file_count": 10,
+  "supported_count": 10,
+  "unsupported_count": 0,
+  "text_file_count": 8,
+  "total_score": 72.0,
+  "light": "yellow",
+  "expected_failure_rate": 10,
+  "workload": "M",
+  "dimensions": [
+    {
+      "key": "extractability",
+      "score": 80.0,
+      "weight": 0.25
+    },
+    {
+      "key": "structure",
+      "score": 65.6,
+      "weight": 0.2
+    },
+    {
+      "key": "chunkability",
+      "score": 57.5,
+      "weight": 0.2
+    },
+    {
+      "key": "redundancy",
+      "score": 84.0,
+      "weight": 0.15
+    },
+    {
+      "key": "freshness",
+      "score": 76.0,
+      "weight": 0.1
+    },
+    {
+      "key": "metadata",
+      "score": 72.0,
+      "weight": 0.1
+    }
+  ],
+  "findings": [
+    {
+      "code": "LOW_EXTRACTABILITY",
+      "severity": "high",
+      "pct": 20,
+      "scanned": 2
+    },
+    {
+      "code": "SCANNED_PDF",
+      "severity": "high",
+      "count": 2
+    },
+    {
+      "code": "HIGH_DUPLICATION",
+      "severity": "medium",
+      "pct": 14
+    },
+    {
+      "code": "TINY_FRAGMENTS",
+      "severity": "low",
+      "count": 3
+    },
+    {
+      "code": "STALE_DATA",
+      "severity": "low",
+      "pct": 40
+    }
+  ],
+  "stats": {
+    "scanned_pdf": 2,
+    "encrypted": 0,
+    "corrupt": 0,
+    "duplicate_groups": 1
+  },
+  "tool": "dataready",
+  "version": "1.0.0",
+  "findings_text": [
+    "20% 的檔案無法被機器抽取文字（掃描影像 / 加密 / 損毀）。模型讀不到的內容，等於不存在。",
+    "偵測到 2 份疑似掃描影像 PDF。沒有 OCR 前，這些文件對 AI 是黑的。",
+    "約 14% 內容為重複 / 近似重複。重複資料會讓檢索回傳互相打架的版本。",
+    "3 份檔案過於碎小，單獨切塊缺乏脈絡。",
+    "約 40% 檔案超過兩年未更新。過期內容是『統計上相關但事實已錯』的主要來源。"
+  ],
+  "consult_url": "https://www.peakstargroup.com/?ref=dataready"
+}
