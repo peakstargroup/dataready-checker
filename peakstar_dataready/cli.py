@@ -84,7 +84,19 @@ def run_scan(args: argparse.Namespace) -> int:
     return 0
 
 
+def _ensure_utf8_output() -> None:
+    """在非 UTF-8 主控台（Windows cp1252 / cp950 等）上，繁中輸出會觸發
+    UnicodeEncodeError 讓整支 CLI 當掉。盡力把 stdout/stderr 切到 UTF-8；
+    reconfigure 於 Python 3.7+ 可用，環境不支援則安靜略過。"""
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
+
+
 def main(argv: list[str] | None = None) -> int:
+    _ensure_utf8_output()
     parser = _build_parser()
     args = parser.parse_args(argv)
     if args.command == "scan":

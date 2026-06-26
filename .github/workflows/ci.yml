@@ -22,4 +22,4 @@ jobs:
         run: python -m unittest discover -s tests -t .
       - name: Smoke test CLI
         run: |
-          python -m peakstar_dataready scan examples/sample_docs --out /tmp/dr --lang en
+          python -m peakstar_dataready scan examples/sample_docs --out dr-smoke-out --lang en
