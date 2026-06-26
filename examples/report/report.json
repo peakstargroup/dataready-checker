@@ -84,7 +84,7 @@
     },
     {
       "label": "產生時間",
-      "value": "2026-06-26 19:11:12"
+      "value": "2026-06-26 19:28:27"
     },
     {
       "label": "檔案總數",
@@ -120,6 +120,6 @@
     "unsupported_count": 0,
     "text_file_count": 8,
     "root": "examples\\sample_docs",
-    "generated_at": "2026-06-26 19:11:12"
+    "generated_at": "2026-06-26 19:28:27"
   }
 }

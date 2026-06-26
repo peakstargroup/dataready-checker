@@ -13,13 +13,13 @@ from pathlib import Path
 from .brand import LIGHT_COLOR, SEV_COLOR, light_for
 from .model import ReportDoc
 
-# 品牌色：深藍 #0D1F3C / #1E3A5F、青綠(teal) #0E9AA7、琥珀 #E07B39
+# 品牌色：深藍 #0D1F3C / #1E3A5F、青綠(teal) #43B2A1、琥珀 #E07B39
 _CSS = """
 * { box-sizing: border-box; }
 body { margin: 0; font-family: -apple-system, "Segoe UI", "Microsoft JhengHei", sans-serif;
-       color: #0D1F3C; background: #f4f6fa; line-height: 1.6; }
+       color: #1B2B33; background: #F4F8F7; line-height: 1.6; }
 .wrap { max-width: 860px; margin: 0 auto; padding: 32px 24px 64px; }
-header { background: linear-gradient(135deg, #0D1F3C, #1E3A5F); color: #fff;
+header { background: linear-gradient(135deg, #22577A, #2E8C8C); color: #fff;
          border-radius: 16px; padding: 28px 32px; }
 header h1 { margin: 0 0 4px; font-size: 26px; }
 header .sub { color: #b9c6dd; font-size: 14px; }
@@ -32,24 +32,24 @@ header .meta { margin-top: 14px; font-size: 13px; color: #cdd8ea; }
 .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 24px 0; }
 .card { background: #fff; border-radius: 12px; padding: 16px 18px;
         border-left: 6px solid #ccc; box-shadow: 0 1px 3px rgba(13,31,60,.06); }
-.card h3 { margin: 0 0 4px; font-size: 16px; display: flex; justify-content: space-between; }
+.card h3 { margin: 0 0 4px; font-size: 16px; color: #22577A; display: flex; justify-content: space-between; }
 .card .dimscore { font-weight: 800; }
 .card p { margin: 0; font-size: 13px; color: #5b6b85; }
 .card .bar { height: 7px; border-radius: 4px; background: #e6eaf2; margin-top: 10px; overflow: hidden; }
 .card .bar > i { display: block; height: 100%; }
-section h2 { font-size: 18px; border-bottom: 2px solid #0E9AA7; padding-bottom: 6px;
+section h2 { font-size: 18px; color: #22577A; border-bottom: 2px solid #43B2A1; padding-bottom: 6px;
              margin-top: 32px; }
 .finding { background: #fff; border-radius: 10px; padding: 12px 16px; margin: 10px 0;
            border-left: 5px solid #999; }
 .finding .sev { font-size: 11px; font-weight: 700; color: #fff; padding: 2px 8px;
                 border-radius: 6px; margin-right: 8px; }
 .means { background: #fff7f0; border: 1px solid #f0d6bf; border-radius: 12px; padding: 18px 22px; }
-.means .big { font-size: 30px; font-weight: 800; color: #C0531B; }
+.means .big { font-size: 30px; font-weight: 800; color: #B0791E; }
 .cta { margin-top: 32px; background: #fff; border: 1px solid #d9e0ec;
-       border-left: 6px solid #0E9AA7; border-radius: 12px; padding: 22px 26px; }
-.cta h2 { color: #1E3A5F; border: 0; margin: 0 0 8px; font-size: 17px; }
+       border-left: 6px solid #43B2A1; border-radius: 12px; padding: 22px 26px; }
+.cta h2 { color: #22577A; border: 0; margin: 0 0 8px; font-size: 17px; }
 .cta p { color: #5b6b85; max-width: 640px; margin: 0 0 12px; }
-.cta a { color: #0E9AA7; text-decoration: none; font-weight: 700; }
+.cta a { color: #43B2A1; text-decoration: none; font-weight: 700; }
 .cta .link { display: block; margin-top: 8px; font-size: 12px; color: #9aa6bd; word-break: break-all; }
 footer { margin-top: 28px; font-size: 12px; color: #7c8aa3; text-align: center; }
 @media (max-width: 600px) { .cards { grid-template-columns: 1fr; } }
