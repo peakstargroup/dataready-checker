@@ -13,7 +13,7 @@ from pathlib import Path
 from .brand import LIGHT_COLOR, SEV_COLOR, light_for
 from .model import ReportDoc
 
-# 品牌色：深藍 #0D1F3C / #1E3A5F、鈷藍 #3B5EA6、琥珀 #E07B39
+# 品牌色：深藍 #0D1F3C / #1E3A5F、青綠(teal) #0E9AA7、琥珀 #E07B39
 _CSS = """
 * { box-sizing: border-box; }
 body { margin: 0; font-family: -apple-system, "Segoe UI", "Microsoft JhengHei", sans-serif;
@@ -37,7 +37,7 @@ header .meta { margin-top: 14px; font-size: 13px; color: #cdd8ea; }
 .card p { margin: 0; font-size: 13px; color: #5b6b85; }
 .card .bar { height: 7px; border-radius: 4px; background: #e6eaf2; margin-top: 10px; overflow: hidden; }
 .card .bar > i { display: block; height: 100%; }
-section h2 { font-size: 18px; border-bottom: 2px solid #3B5EA6; padding-bottom: 6px;
+section h2 { font-size: 18px; border-bottom: 2px solid #0E9AA7; padding-bottom: 6px;
              margin-top: 32px; }
 .finding { background: #fff; border-radius: 10px; padding: 12px 16px; margin: 10px 0;
            border-left: 5px solid #999; }
@@ -46,10 +46,10 @@ section h2 { font-size: 18px; border-bottom: 2px solid #3B5EA6; padding-bottom: 
 .means { background: #fff7f0; border: 1px solid #f0d6bf; border-radius: 12px; padding: 18px 22px; }
 .means .big { font-size: 30px; font-weight: 800; color: #C0531B; }
 .cta { margin-top: 32px; background: #fff; border: 1px solid #d9e0ec;
-       border-left: 6px solid #3B5EA6; border-radius: 12px; padding: 22px 26px; }
+       border-left: 6px solid #0E9AA7; border-radius: 12px; padding: 22px 26px; }
 .cta h2 { color: #1E3A5F; border: 0; margin: 0 0 8px; font-size: 17px; }
 .cta p { color: #5b6b85; max-width: 640px; margin: 0 0 12px; }
-.cta a { color: #3B5EA6; text-decoration: none; font-weight: 700; }
+.cta a { color: #0E9AA7; text-decoration: none; font-weight: 700; }
 .cta .link { display: block; margin-top: 8px; font-size: 12px; color: #9aa6bd; word-break: break-all; }
 footer { margin-top: 28px; font-size: 12px; color: #7c8aa3; text-align: center; }
 @media (max-width: 600px) { .cards { grid-template-columns: 1fr; } }
