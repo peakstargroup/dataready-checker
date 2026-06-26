@@ -27,5 +27,6 @@ Repository = "https://github.com/peakstargroup/dataready-checker"
 [project.scripts]
 dataready = "peakstar_dataready.cli:main"
 
-[tool.setuptools]
-packages = ["peakstar_dataready"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["peakstar_dataready*"]

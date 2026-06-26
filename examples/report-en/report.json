@@ -1,88 +1,125 @@
 {
-  "root": "examples\\sample_docs",
-  "generated_at": "2026-06-26 11:11:17",
-  "file_count": 10,
-  "supported_count": 10,
-  "unsupported_count": 0,
-  "text_file_count": 8,
+  "tool": "dataready",
+  "version": "1.0.0",
+  "lang": "en",
+  "title": "Data Readiness Report",
   "total_score": 72.0,
   "light": "yellow",
-  "expected_failure_rate": 10,
-  "workload": "M",
   "dimensions": [
     {
       "key": "extractability",
-      "score": 80.0,
-      "weight": 0.25
+      "name": "Extractability",
+      "desc": "Can machines extract the text (vs scanned image / encrypted / corrupt)",
+      "score": 80.0
     },
     {
       "key": "structure",
-      "score": 65.6,
-      "weight": 0.2
+      "name": "Structure",
+      "desc": "Headings, table regularity, layout consistency",
+      "score": 65.6
     },
     {
       "key": "chunkability",
-      "score": 57.5,
-      "weight": 0.2
+      "name": "Chunkability",
+      "desc": "Document length and semantic boundaries suit chunking",
+      "score": 57.5
     },
     {
       "key": "redundancy",
-      "score": 84.0,
-      "weight": 0.15
+      "name": "Redundancy",
+      "desc": "Exact / near duplicate ratio, version sprawl",
+      "score": 84.0
     },
     {
       "key": "freshness",
-      "score": 76.0,
-      "weight": 0.1
+      "name": "Freshness",
+      "desc": "Recency of content, share of stale files",
+      "score": 76.0
     },
     {
       "key": "metadata",
-      "score": 72.0,
-      "weight": 0.1
+      "name": "Metadata",
+      "desc": "Filename semantics and directory organization",
+      "score": 72.0
     }
   ],
   "findings": [
     {
-      "code": "LOW_EXTRACTABILITY",
       "severity": "high",
-      "pct": 20,
-      "scanned": 2
+      "text": "20% of files yield no machine-extractable text (scanned image / encrypted / corrupt). What the model cannot read does not exist."
     },
     {
-      "code": "SCANNED_PDF",
       "severity": "high",
-      "count": 2
+      "text": "2 likely scanned-image PDFs detected. Without OCR, these are invisible to the AI."
     },
     {
-      "code": "HIGH_DUPLICATION",
       "severity": "medium",
-      "pct": 14
+      "text": "About 14% of content is duplicate / near-duplicate. Duplicates make retrieval return conflicting versions."
     },
     {
-      "code": "TINY_FRAGMENTS",
       "severity": "low",
-      "count": 3
+      "text": "3 files are too small to carry context on their own."
     },
     {
-      "code": "STALE_DATA",
       "severity": "low",
-      "pct": 40
+      "text": "About 40% of files are over two years old. Stale content is the main source of 'statistically relevant but factually wrong'."
     }
   ],
-  "stats": {
-    "scanned_pdf": 2,
-    "encrypted": 0,
-    "corrupt": 0,
-    "duplicate_groups": 1
+  "means": {
+    "stat": {
+      "value": "10%",
+      "label": "Expected RAG failure rate on current data (rough estimate)"
+    },
+    "rows": [
+      {
+        "label": "Estimated data-prep workload (rough, not a quote)",
+        "value": "Medium"
+      }
+    ]
   },
-  "tool": "dataready",
-  "version": "1.0.0",
-  "findings_text": [
-    "20% of files yield no machine-extractable text (scanned image / encrypted / corrupt). What the model cannot read does not exist.",
-    "2 likely scanned-image PDFs detected. Without OCR, these are invisible to the AI.",
-    "About 14% of content is duplicate / near-duplicate. Duplicates make retrieval return conflicting versions.",
-    "3 files are too small to carry context on their own.",
-    "About 40% of files are over two years old. Stale content is the main source of 'statistically relevant but factually wrong'."
+  "meta": [
+    {
+      "label": "Scanned target",
+      "value": "examples\\sample_docs"
+    },
+    {
+      "label": "Generated",
+      "value": "2026-06-26 12:51:22"
+    },
+    {
+      "label": "Total files",
+      "value": "10 (Analyzable 10 / Unsupported 0)"
+    }
   ],
-  "consult_url": "https://www.peakstargroup.com/?ref=dataready"
+  "cta": {
+    "title": "Next step: from check-up to delivery",
+    "body": "Your data readiness is Yellow: a base exists but with clear gaps. Fixing data before investing in AI sharply lowers failure rates.",
+    "button": "How Peakstar approaches this",
+    "url": "https://www.peakstargroup.com/?ref=dataready"
+  },
+  "consult_url": "https://www.peakstargroup.com/?ref=dataready",
+  "extra": {
+    "expected_failure_rate": 10,
+    "workload": "M",
+    "dimension_weights": {
+      "extractability": 0.25,
+      "structure": 0.2,
+      "chunkability": 0.2,
+      "redundancy": 0.15,
+      "freshness": 0.1,
+      "metadata": 0.1
+    },
+    "stats": {
+      "scanned_pdf": 2,
+      "encrypted": 0,
+      "corrupt": 0,
+      "duplicate_groups": 1
+    },
+    "file_count": 10,
+    "supported_count": 10,
+    "unsupported_count": 0,
+    "text_file_count": 8,
+    "root": "examples\\sample_docs",
+    "generated_at": "2026-06-26 12:51:22"
+  }
 }

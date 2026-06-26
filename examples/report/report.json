@@ -1,88 +1,125 @@
 {
-  "root": "examples\\sample_docs",
-  "generated_at": "2026-06-26 11:11:17",
-  "file_count": 10,
-  "supported_count": 10,
-  "unsupported_count": 0,
-  "text_file_count": 8,
+  "tool": "dataready",
+  "version": "1.0.0",
+  "lang": "zh",
+  "title": "資料準備度健檢報告",
   "total_score": 72.0,
   "light": "yellow",
-  "expected_failure_rate": 10,
-  "workload": "M",
   "dimensions": [
     {
       "key": "extractability",
-      "score": 80.0,
-      "weight": 0.25
+      "name": "可讀取性",
+      "desc": "文字能否被機器抽出（vs 掃描影像 / 加密 / 損毀）",
+      "score": 80.0
     },
     {
       "key": "structure",
-      "score": 65.6,
-      "weight": 0.2
+      "name": "結構化程度",
+      "desc": "有無標題層級、表格是否規整、版面是否一致",
+      "score": 65.6
     },
     {
       "key": "chunkability",
-      "score": 57.5,
-      "weight": 0.2
+      "name": "切塊友善度",
+      "desc": "文件長度與語意邊界是否利於切塊",
+      "score": 57.5
     },
     {
       "key": "redundancy",
-      "score": 84.0,
-      "weight": 0.15
+      "name": "重複與一致性",
+      "desc": "重複 / 近似重複檔比例、版本是否混亂",
+      "score": 84.0
     },
     {
       "key": "freshness",
-      "score": 76.0,
-      "weight": 0.1
+      "name": "新鮮度",
+      "desc": "內容是否夠新、過期比例",
+      "score": 76.0
     },
     {
       "key": "metadata",
-      "score": 72.0,
-      "weight": 0.1
+      "name": "元資料與可追溯",
+      "desc": "檔名是否有語意、目錄是否有組織",
+      "score": 72.0
     }
   ],
   "findings": [
     {
-      "code": "LOW_EXTRACTABILITY",
       "severity": "high",
-      "pct": 20,
-      "scanned": 2
+      "text": "20% 的檔案無法被機器抽取文字（掃描影像 / 加密 / 損毀）。模型讀不到的內容，等於不存在。"
     },
     {
-      "code": "SCANNED_PDF",
       "severity": "high",
-      "count": 2
+      "text": "偵測到 2 份疑似掃描影像 PDF。沒有 OCR 前，這些文件對 AI 是黑的。"
     },
     {
-      "code": "HIGH_DUPLICATION",
       "severity": "medium",
-      "pct": 14
+      "text": "約 14% 內容為重複 / 近似重複。重複資料會讓檢索回傳互相打架的版本。"
     },
     {
-      "code": "TINY_FRAGMENTS",
       "severity": "low",
-      "count": 3
+      "text": "3 份檔案過於碎小，單獨切塊缺乏脈絡。"
     },
     {
-      "code": "STALE_DATA",
       "severity": "low",
-      "pct": 40
+      "text": "約 40% 檔案超過兩年未更新。過期內容是『統計上相關但事實已錯』的主要來源。"
     }
   ],
-  "stats": {
-    "scanned_pdf": 2,
-    "encrypted": 0,
-    "corrupt": 0,
-    "duplicate_groups": 1
+  "means": {
+    "stat": {
+      "value": "10%",
+      "label": "以目前資料直接做 RAG 的預期失敗率（概略估計）"
+    },
+    "rows": [
+      {
+        "label": "預估資料整備工作量級（概略，非報價）",
+        "value": "中"
+      }
+    ]
   },
-  "tool": "dataready",
-  "version": "1.0.0",
-  "findings_text": [
-    "20% 的檔案無法被機器抽取文字（掃描影像 / 加密 / 損毀）。模型讀不到的內容，等於不存在。",
-    "偵測到 2 份疑似掃描影像 PDF。沒有 OCR 前，這些文件對 AI 是黑的。",
-    "約 14% 內容為重複 / 近似重複。重複資料會讓檢索回傳互相打架的版本。",
-    "3 份檔案過於碎小，單獨切塊缺乏脈絡。",
-    "約 40% 檔案超過兩年未更新。過期內容是『統計上相關但事實已錯』的主要來源。"
+  "meta": [
+    {
+      "label": "掃描標的",
+      "value": "examples\\sample_docs"
+    },
+    {
+      "label": "產生時間",
+      "value": "2026-06-26 12:51:22"
+    },
+    {
+      "label": "檔案總數",
+      "value": "10 (可分析檔 10 / 不支援格式 0)"
+    }
   ],
-  "consult_url": "https://www.peakstargroup.com/?ref=dataready"
+  "cta": {
+    "title": "下一步：從健檢到落地",
+    "body": "你的資料準備度為黃燈：已有基礎，但仍有明顯缺口。在投入 AI 前補強資料，能大幅降低失敗率。需要時，歡迎參考 Peakstar 的做法。",
+    "button": "了解 Peakstar 的做法",
+    "url": "https://www.peakstargroup.com/?ref=dataready"
+  },
+  "consult_url": "https://www.peakstargroup.com/?ref=dataready",
+  "extra": {
+    "expected_failure_rate": 10,
+    "workload": "M",
+    "dimension_weights": {
+      "extractability": 0.25,
+      "structure": 0.2,
+      "chunkability": 0.2,
+      "redundancy": 0.15,
+      "freshness": 0.1,
+      "metadata": 0.1
+    },
+    "stats": {
+      "scanned_pdf": 2,
+      "encrypted": 0,
+      "corrupt": 0,
+      "duplicate_groups": 1
+    },
+    "file_count": 10,
+    "supported_count": 10,
+    "unsupported_count": 0,
+    "text_file_count": 8,
+    "root": "examples\\sample_docs",
+    "generated_at": "2026-06-26 12:51:22"
+  }
 }
