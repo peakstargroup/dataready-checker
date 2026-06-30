@@ -120,25 +120,68 @@ def _parse_pptx(data: bytes) -> dict:
     return {"text": text, "pages": len(slides), "extractable": bool(text.strip())}
 
 
+# PDF 解析上限：只取樣前段內容估算文字量，避免單一肥大內容流（或真實/惡意
+# PDF 觸發的正則回溯）拖垮整體。char_count 僅作為「有沒有文字 / 大概多少」
+# 的訊號，取樣前段即足夠。
+_PDF_SCAN_BUDGET = 4 * 1024 * 1024   # 每個 PDF 最多掃描的解壓後位元組
+_PDF_MAX_STREAMS = 400               # 每個 PDF 最多檢視的內容流數
+
+
+def _count_paren_chars(content: bytes) -> int:
+    """線性單次掃描，計算 PDF 文字字串 (...) 內的字元數。依 PDF 規格處理反斜線
+    跳脫與巢狀括號；O(n) 且絕不重掃，取代會在真實 PDF 上回溯爆炸的巢狀正則。"""
+    count = 0
+    depth = 0
+    i = 0
+    n = len(content)
+    while i < n:
+        c = content[i]
+        if depth > 0 and c == 0x5C:          # '\' 跳脫：跳過下一個位元組
+            count += 1
+            i += 2
+            continue
+        if c == 0x28:                         # '('
+            if depth > 0:
+                count += 1                    # 巢狀左括號屬字串內容
+            depth += 1
+        elif c == 0x29:                       # ')'
+            if depth > 0:
+                depth -= 1
+                if depth > 0:
+                    count += 1                # 巢狀右括號屬字串內容
+        elif depth > 0:
+            count += 1
+        i += 1
+    return count
+
+
 def _parse_pdf(data: bytes) -> dict:
+    import zlib
+
     encrypted = b"/Encrypt" in data
     pages = len(re.findall(rb"/Type\s*/Page[^s]", data))
     if pages == 0:
         counts = [int(x) for x in re.findall(rb"/Count\s+(\d+)", data)]
         pages = max(counts) if counts else 1
+
     text_chars = 0
+    scanned = 0
+    streams = 0
     for m in re.finditer(rb"stream\r?\n(.*?)\r?\nendstream", data, re.DOTALL):
+        if scanned >= _PDF_SCAN_BUDGET or streams >= _PDF_MAX_STREAMS:
+            break
+        streams += 1
         raw = m.group(1)
         try:
-            import zlib
             content = zlib.decompress(raw)
         except Exception:
             content = raw
-        for tm in re.finditer(rb"\(((?:[^()\\]|\\.)*)\)\s*(?:Tj|'|\")", content):
-            text_chars += len(tm.group(1))
-        for tm in re.finditer(rb"\[(.*?)\]\s*TJ", content, re.DOTALL):
-            for sm in re.finditer(rb"\(((?:[^()\\]|\\.)*)\)", tm.group(1)):
-                text_chars += len(sm.group(1))
+        room = _PDF_SCAN_BUDGET - scanned
+        if len(content) > room:               # 只取樣預算內的部分
+            content = content[:room]
+        scanned += len(content)
+        text_chars += _count_paren_chars(content)
+
     extractable = (not encrypted) and text_chars > 0
     is_scanned = (not encrypted) and text_chars == 0
     return {

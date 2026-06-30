@@ -59,6 +59,17 @@ class TestExtract(unittest.TestCase):
         self.assertFalse(f.extractable)
         self.assertTrue(f.is_scanned_pdf)
 
+    def test_pdf_pathological_is_fast(self):
+        # 回歸鎖定：舊的巢狀正則在這種內容流上會 O(n²) 爆炸（256KB 即 >80s）。
+        # 線性解析器必須在亞秒級完成；給 5s 寬裕上限避免 CI 抖動誤判。
+        import time
+        p = h.write_bytes(self.d, "pathological.pdf", h.pdf_pathological_bytes(2))
+        t = time.perf_counter()
+        f = analyze_file(p)
+        elapsed = time.perf_counter() - t
+        self.assertLess(elapsed, 5.0, f"PDF 解析過慢（{elapsed:.1f}s），疑似正則回歸")
+        self.assertFalse(f.corrupt)
+
     def test_unsupported_flagged(self):
         f = analyze_file(h.write_bytes(self.d, "a.zip", b"PK junk"))
         self.assertFalse(f.supported)

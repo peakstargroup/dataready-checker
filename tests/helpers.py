@@ -102,6 +102,20 @@ def pdf_text_bytes(text: str = "Hello readable world this is extractable text.")
     return body
 
 
+def pdf_pathological_bytes(decompressed_mb: int = 2) -> bytes:
+    """大型內容流，內含大量 '[' 與 '(' 但鮮少對應的文字運算子 —— 正是會讓
+    『巢狀非貪婪正則』在真實 PDF 上回溯爆炸（O(n²)）的形狀。用來鎖住效能回歸：
+    線性解析器應在亞秒級完成。"""
+    import zlib
+    unit = b"[/Name 1 2 R] /X 5 0 obj <</A[1 0 R]>> q 1 0 0 1 0 0 cm BT "
+    content = unit * (decompressed_mb * 1024 * 1024 // len(unit))
+    comp = zlib.compress(content)
+    header = b"%PDF-1.5\n1 0 obj<</Type /Page>>endobj\n"
+    stream_obj = (b"2 0 obj<</Length " + str(len(comp)).encode()
+                  + b"/Filter/FlateDecode>>\nstream\n")
+    return header + stream_obj + comp + b"\nendstream\nendobj\n%%EOF\n"
+
+
 def pdf_scanned_bytes() -> bytes:
     return (
         b"%PDF-1.4\n"
